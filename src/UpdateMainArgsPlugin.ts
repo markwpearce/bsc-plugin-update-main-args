@@ -87,7 +87,7 @@ export class UpdateMainArgsPlugin implements CompilerPlugin {
         const parseJSONCall = new CallExpression({
             callee: new VariableExpression({ name: createIdentifier('parseJson') }),
             args: [
-                createStringLiteral(JSON.stringify(argsToAppend).replaceAll('"', '""'))
+                createStringLiteral(JSON.stringify(argsToAppend).replace(new RegExp(/"/, 'g'), '""'))
             ],
             openingParen: createToken(TokenKind.LeftParen),
             closingParen: createToken(TokenKind.RightParen)
