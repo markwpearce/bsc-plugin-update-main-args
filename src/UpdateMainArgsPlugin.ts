@@ -35,13 +35,21 @@ export class UpdateMainArgsPlugin implements CompilerPlugin {
     config: UpdateMainArgsConfig;
     logger: Logger;
 
-    //Read bsconfig and set config
+    /**
+     * Read Program options and set config
+     * @param event
+     */
     public beforeBuildProgram(event: BeforeBuildProgramEvent) {
         const programBuilder = event.program;
         this.setNormalizedConfig(programBuilder)
         this.logger = programBuilder.logger;
     }
 
+    /**
+     * If file is in the source scope and has the main() function, update its args
+     * @param event
+     * @returns
+     */
     public beforePrepareFile(event: PrepareFileEvent) {
         if (!this.config) {
             return;
@@ -97,8 +105,13 @@ export class UpdateMainArgsPlugin implements CompilerPlugin {
         event.editor.arrayUnshift(mainFunction.func.body.statements, argsAppendCall);
     }
 
-    public setNormalizedConfig(builder: { options: FinalizedBsConfig }): UpdateMainArgsConfig {
-        const bscOptions = builder.options[CONFIG_KEY];
+    /**
+     * Normalize the configuration
+     * @param program
+     * @returns
+     */
+    public setNormalizedConfig(program: { options: FinalizedBsConfig }): UpdateMainArgsConfig {
+        const bscOptions = program.options[CONFIG_KEY];
         const config: UpdateMainArgsConfig = {
             envFilePath: bscOptions?.envFilePath ?? './.env',
             envVar: bscOptions?.envVar ?? 'MAIN_ARGS',
@@ -109,6 +122,10 @@ export class UpdateMainArgsPlugin implements CompilerPlugin {
         return this.config;
     }
 
+    /**
+     * Merge the args to be be added from the ENV file and from the options
+     * @returns
+     */
     public getArgsFromEnv(): Record<string, any> {
         let result = this.config.args;
         if (!this.config.useEnv) {
