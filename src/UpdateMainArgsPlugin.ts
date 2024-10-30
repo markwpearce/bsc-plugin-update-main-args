@@ -38,7 +38,7 @@ export class UpdateMainArgsPlugin implements CompilerPlugin {
     //Read bsconfig and set config
     public beforeBuildProgram(event: BeforeBuildProgramEvent) {
         const programBuilder = event.program;
-        this.setNormalizedConfig(programBuilder);
+        this.setNormalizedConfig(programBuilder)
         this.logger = programBuilder.logger;
     }
 

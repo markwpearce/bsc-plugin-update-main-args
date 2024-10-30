@@ -22,13 +22,18 @@ module.exports = {
         'plugin:jsdoc/recommended',
         'plugin:import/typescript'
     ],
+    settings: {
+        'import/resolver': {
+            typescript: true,
+            node: true
+        }
+    },
     rules: {
         '@typescript-eslint/array-type': 'off',
         '@typescript-eslint/consistent-type-assertions': 'off',
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/explicit-member-accessibility': 'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
-        '@typescript-eslint/indent': ['error', 4],
         '@typescript-eslint/init-declarations': 'off',
         '@typescript-eslint/parameter-properties': 'off',
         '@typescript-eslint/lines-between-class-members': 'off',
@@ -121,6 +126,9 @@ module.exports = {
         'getter-return': 'off',
         'guard-for-in': 'off',
         'id-length': 'off',
+        'import/no-extraneous-dependencies': ['error', {
+            'devDependencies': ['**/*.spec.ts']
+        }],
         'indent': 'off',
         'init-declarations': 'off',
         'line-comment-position': 'off',
@@ -134,8 +142,6 @@ module.exports = {
         'max-lines-per-function': 'off',
         'max-params': 'off',
         'max-statements': 'off',
-        'import/no-duplicates': ['error'],
-        'no-duplicate-imports': 'off',
         'no-only-tests/no-only-tests': 'error',
         'multiline-comment-style': 'off',
         'multiline-ternary': 'off',
@@ -197,8 +203,18 @@ module.exports = {
         {
             files: ['*.spec.ts'],
             rules: {
-                '@typescript-eslint/no-unsafe-assignment': 'off'
+                '@typescript-eslint/no-unsafe-assignment': 'off',
+                '@typescript-eslint/no-unsafe-call': 'off',
+                '@typescript-eslint/no-unsafe-member-access': 'off',
+                '@typescript-eslint/no-unsafe-return': 'off',
+                '@typescript-eslint/no-unused-expressions': 'off',
+                '@typescript-eslint/no-unused-vars': 'off',
+                '@typescript-eslint/no-unused-vars-experimental': 'off',
+                '@typescript-eslint/dot-notation': 'off',
+                '@typescript-eslint/no-unsafe-argument': 'off',
+                'new-cap': 'off',
+                'no-shadow': 'off',
+                'no-void': 'off'
             }
-        }
-    ]
+        }]
 };
