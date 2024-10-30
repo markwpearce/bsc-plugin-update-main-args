@@ -1,5 +1,5 @@
-import { AALiteralExpression, BeforeBuildProgramEvent, CallExpression, CompilerPlugin, createIdentifier, createStringLiteral, createToken, DottedGetExpression, FinalizedBsConfig, FunctionParameterExpression, FunctionStatement, isBrsFile, isFunctionStatement, LiteralExpression, ParseMode, PrepareFileEvent, ProgramBuilder, TokenKind, VariableExpression, type BeforeProgramCreateEvent, type BeforeSerializeFileEvent } from 'brighterscript';
-import { Logger } from 'brighterscript/dist/logging';
+import { AALiteralExpression, BeforeBuildProgramEvent, CallExpression, CompilerPlugin, createIdentifier, createStringLiteral, createToken, DottedGetExpression, FinalizedBsConfig, FunctionParameterExpression, FunctionStatement, isBrsFile, isFunctionStatement, ParseMode, PrepareFileEvent, TokenKind, VariableExpression } from 'brighterscript';
+import type { Logger } from 'brighterscript/dist/logging';
 import * as dotenv from 'dotenv'
 
 export interface UpdateMainArgsConfig {
