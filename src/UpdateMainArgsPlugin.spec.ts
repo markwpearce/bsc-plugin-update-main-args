@@ -1,4 +1,4 @@
-import { LogLevel, Program, standardizePath as s } from 'brighterscript';
+import { Program, standardizePath as s } from 'brighterscript';
 import * as fsExtra from 'fs-extra';
 import { UpdateMainArgsConfig, UpdateMainArgsPlugin } from './UpdateMainArgsPlugin';
 import undent from 'undent';
