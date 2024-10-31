@@ -2,6 +2,7 @@
     "name": "bsc-plugin-update-main-args",
     "version": "0.1.0",
     "description": "A BrighterScript plugin that injects properties into the argument of the main function - useful for adding deeplinks for debugging",
+    "homepage": "https://github.com/markwpearce/bsc-plugin-update-main-args",
     "main": "dist/index.js",
     "files": [
         "dist/**/!(*.spec.*)*"
