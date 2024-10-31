@@ -8,6 +8,8 @@
 
 A [Brighterscript](https://github.com/rokucommunity/brighterscript) plugin that injects properties into the argument of the main function - useful for adding [deep links](https://developer.roku.com/en-ca/docs/developer-program/discovery/implementing-deep-linking.md) for debugging, for example.
 
+** NOTE: Only Supports Brighterscript Version 1 **
+
 It works by injecting a single line of code as the first line the `main()` function, like this:
 
 ```brs
