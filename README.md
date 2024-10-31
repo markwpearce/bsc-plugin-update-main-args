@@ -85,7 +85,7 @@ You can run the test app through VSCode:
 1. `npm install` to install all dependencies
 2. Open VSCode, run debug configuration `Debug Test App`
 
-It will display all the arguments that werethe following screen:
+It will display all the arguments that were passed to `main` like the following screen:
 
 ![Test App Screenshot](./images/update-main-args.jpg)
 
