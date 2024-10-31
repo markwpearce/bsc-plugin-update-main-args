@@ -1,0 +1,25 @@
+sub main(args as roAssociativeArray)
+
+  screen = CreateObject("roSGScreen")
+  port = CreateObject("roMessagePort")
+  screen.setMessagePort(port)
+
+  ' Add the main args to the global node
+  m.global = screen.getGlobalNode()
+  m.global.update({
+    deeplink: args
+  }, true)
+
+  scene = screen.CreateScene("MainScene") as roSGNodeMainScene
+  screen.show()
+
+  ' vscode_rdb_on_device_component_entry
+
+  while true
+    msg = wait(0, port)
+    msgType = type(msg)
+    if msgType = "roSGScreenEvent"
+      if msg.isScreenClosed() then return
+    end if
+  end while
+end sub

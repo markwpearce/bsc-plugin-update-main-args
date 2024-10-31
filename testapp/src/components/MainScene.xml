@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="MainScene" extends="Scene">
+	<children>
+    <Label id="mainLabel"
+      	text="Main Args:"
+      	translation="[200,100]"
+
+        color="0xFFFFFFFF"
+        font="font:LargeBoldSystemFont"
+      	/>
+      <Label id="argsLabel"
+        translation="[200,200]"
+        color="0xFFFFFFFF"
+        font="font:MediumSystemFont"
+        maxLines="32"
+        width="1200"
+        wrap="true"
+      	/>
+    </children>
+</component>

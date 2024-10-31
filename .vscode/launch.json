@@ -22,6 +22,15 @@
                 "${workspaceFolder}/**",
                 "!**/node_modules/**"
             ]
+        },
+        {
+            "name": "Debug Test App",
+            "type": "brightscript",
+            "request": "launch",
+            "rootDir": "${workspaceFolder}/out/dist",
+            "preLaunchTask": "build-test-app",
+            "enableDebugProtocol": true,
+            "injectRdbOnDeviceComponent": true
         }
     ]
 }

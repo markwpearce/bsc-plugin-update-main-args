@@ -1,0 +1,41 @@
+typecast m as IMainScene
+
+interface IMainScene
+  top as roSGNodeMainScene
+  global as IGlobalNode
+  mainLabel as roSGNodeLabel
+  argsLabel as roSGNodeLabel
+end interface
+
+interface IGlobalNode
+  deeplink as roAssociativeArray
+end interface
+
+
+sub init()
+  m.top.setFocus(true)
+  m.mainLabel = m.top.findNode("mainLabel")
+  m.argsLabel = m.top.findNode("argsLabel")
+
+  output = getAAOutput(m.global.deeplink)
+  m.argsLabel.text = output
+end sub
+
+
+function getAAOutput(aa as roAssociativeArray, indent = 0 as integer) as string
+  output = ""
+  indentStr = ""
+  for i = 1 to indent
+    indentStr += "    "
+  end for
+  for each item in aa.items()
+    if invalid <> getInterface(item.value, "ifassociativearray")
+      output += `${indentStr}${item.key}: {` + chr(10)
+      output += getAAOutput(item.value, indent + 1)
+      output += `${indentStr}}` + chr(10)
+    else
+      output += `${indentStr}${item.key}: ${FormatJson(item.value)}` + chr(10)
+    end if
+  end for
+  return output
+end function
