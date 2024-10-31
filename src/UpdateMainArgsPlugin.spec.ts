@@ -14,10 +14,10 @@ describe('UpdateMainArgsPlugin', () => {
     let plugin: UpdateMainArgsPlugin;
 
 
-    function writeEnvFile(data: Record<string, any>, path = s`${tempDir}/.env`) {
+    function writeEnvFile(data: Record<string, any>, path = s`${tempDir}/.env`, argName = 'MAIN_ARGS') {
         const json = JSON.stringify(data);
         fsExtra.outputFileSync(path, undent`
-            MAIN_ARGS=${json}
+            ${argName}=${json}
         `)
     }
 
@@ -55,6 +55,7 @@ describe('UpdateMainArgsPlugin', () => {
         fsExtra.removeSync(tempDir);
         // clean process.env
         dotenv.config();
+        delete process.env['MAIN_ARGS'];
     });
 
     describe('config', () => {
@@ -186,6 +187,62 @@ describe('UpdateMainArgsPlugin', () => {
             expect(mainSource).to.include('myArg.append(parseJson("{""test"":123,""arg"":""value""}"))')
         });
 
+        it('updates runUserInterface', async () => {
+            setConfig({ useEnv: false, args: { test: 123 } });
+            program.setFile('source/main.brs', `
+                sub runUserInterface()
+                end sub
+            `);
+            await program.build();
+            const mainSource = getTranspiledFileSource('source/main.brs');
+            expect(mainSource).to.include('args.append(parseJson("{""test"":123}"))')
+        });
+
+        it('does not change non-main function', async () => {
+            setConfig({ useEnv: false, args: { test: 123 } });
+            program.setFile('source/main.brs', `
+                sub other()
+                    print "hello"
+                end sub
+            `);
+            await program.build();
+            const mainSource = getTranspiledFileSource('source/main.brs');
+            expect(mainSource).to.eql(`
+                sub other()
+                    print "hello"
+                end sub
+            `);
+        });
+
+        it('does not crash if env file is not found', async () => {
+            setConfig({ useEnv: true, envFilePath: 'notfound' });
+            program.setFile('source/main.brs', `
+                sub main()
+                end sub
+            `);
+            await program.build();
+            const mainSource = getTranspiledFileSource('source/main.brs');
+            expect(mainSource).to.eql(`
+                sub main()
+                end sub
+            `);
+        });
+
+        it('does not crash if env variable is not found', async () => {
+            setConfig({ useEnv: true });
+            writeEnvFile({}, s`${tempDir}/.env`, 'NOT_MAIN_ARGS');
+
+            program.setFile('source/main.brs', `
+                sub main()
+                end sub
+            `);
+            await program.build();
+            const mainSource = getTranspiledFileSource('source/main.brs');
+            expect(mainSource).to.eql(`
+                sub main()
+                end sub
+            `);
+        });
     });
 
 });

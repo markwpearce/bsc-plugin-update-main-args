@@ -65,7 +65,7 @@ export class UpdateMainArgsPlugin implements CompilerPlugin {
             return;
         }
         const mainFunction = event.file.ast.statements.find((stmt) => {
-            return isFunctionStatement(stmt) && stmt.getName(ParseMode.BrightScript).toLowerCase() === 'main';
+            return isFunctionStatement(stmt) && ['main', 'runuserinterface'].includes(stmt.getName(ParseMode.BrightScript).toLowerCase());
         }) as FunctionStatement;
         if (!mainFunction) {
             return;

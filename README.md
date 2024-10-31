@@ -10,10 +10,10 @@ A [Brighterscript](https://github.com/rokucommunity/brighterscript) plugin that 
 
 **NOTE: Only Supports Brighterscript Version 1**
 
-It works by injecting a single line of code as the first line the `main()` function, like this:
+It works by injecting a single line of code as the first line the [`main()`](https://developer.roku.com/en-ca/docs/developer-program/getting-started/architecture/dev-environment.md#sub-main) (or [`runUserInterface()`](https://developer.roku.com/en-ca/docs/developer-program/getting-started/architecture/dev-environment.md#sub-runuserinterface)) function , like this:
 
 ```brs
-sub main(args as dynamic)
+sub main(args)
     args.append(parseJson("{""extra"":""args here""}"))
     ...
 end sub
