@@ -1,6 +1,21 @@
 # Update Main Args (Brighterscript Plugin)
 
+[![build status](https://img.shields.io/github/actions/workflow/status/markwpearce/bsc-plugin-update-main-args/build.yml?branch=main&logo=github)](https://github.com/markwpearce/bsc-plugin-update-main-args/actions?query=branch%3Amaster+workflow%3Abuild)
+
+<!--
+[![coverage status](https://img.shields.io/coveralls/github/markwpearce/bsc-plugin-update-main-args?logo=coveralls)](https://coveralls.io/github/markwpearce/bsc-plugin-update-main-args?branch=main)
+-->
+
 A [Brighterscript](https://github.com/rokucommunity/brighterscript) plugin that injects properties into the argument of the main function - useful for adding [deep links](https://developer.roku.com/en-ca/docs/developer-program/discovery/implementing-deep-linking.md) for debugging, for example.
+
+It works by injecting a single line of code as the first line the `main()` function, like this:
+
+```brs
+sub main(args as dynamic)
+    args.append(parseJson("{""extra"":""args here""}"))
+    ...
+end sub
+```
 
 ## Usage
 
@@ -57,4 +72,41 @@ Change the `bsconfig` options to load the environment variable:
         "args": {} // Just add args directly
     }
 }
+```
+
+## Example App
+
+There is an test app showing how the plugin works in `./testapp` (with the caveat that it is loading the plugin directly from source instead of through npm).
+
+You can run the test app through VSCode:
+
+1. `npm install` to install all dependencies
+2. Open VSCode, run debug configuration `Debug Test App`
+
+It will display all the arguments that werethe following screen:
+
+![Test App Screenshot](./images/update-main-args.jpg)
+
+Test App configuration (`./testapp/bsconfig.json`):
+
+```json
+{
+    "updateMainArgs": {
+        "useEnv": true,
+        "envFilePath": "./testenv",
+        "args": {
+            "extra": "args here",
+            "extra_params": {
+                "can": "include",
+                "objects": "too"
+            }
+        }
+    }
+}
+```
+
+Environment variables file (`./testapp/testenv`):
+
+```env
+MAIN_ARGS={"mediaType":"movie","contentId":"abc1234"}
 ```

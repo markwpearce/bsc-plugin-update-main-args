@@ -8,7 +8,7 @@
     ],
     "scripts": {
         "build": "rimraf out && tsc",
-        "build-test-app": "cd test-app && npx bsc",
+        "build-test-app": "cd testapp && npx bsc",
         "lint": "eslint",
         "preversion": "npm run build && npm run lint && npm run test",
         "test": "nyc mocha",

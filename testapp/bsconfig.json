@@ -1,0 +1,28 @@
+{
+    "rootDir": "./src",
+    "createPackage": false,
+    "stagingDir": "../out/dist",
+    "retainStagingDir": true,
+    "autoImportComponentScript": true,
+    "sourceMap": true,
+    "files": [
+        "manifest",
+        "source/**/*.*",
+        "components/**/*.*",
+        "images/**/*.*"
+    ],
+    "plugins": ["../src/index.ts"],
+    "require": ["ts-node/register"],
+    "logLevel": "log",
+    "updateMainArgs": {
+        "useEnv": true,
+        "envFilePath": "./testenv",
+        "args": {
+            "extra": "args here",
+            "extra_params": {
+                "can": "include",
+                "objects": "too"
+            }
+        }
+    }
+}
